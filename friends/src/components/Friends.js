@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import FriendsList from './FriendsList';
+import AddFriend from './AddFriend';
 
 const Friends = props => {
     
@@ -18,7 +19,10 @@ const Friends = props => {
     }, []);
 
     return (
+        <div>
         <FriendsList friends={friends} isLoading={isLoading} />
+        <AddFriend />
+        </div>
     );
 };
 
