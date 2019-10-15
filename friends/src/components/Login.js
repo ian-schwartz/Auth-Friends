@@ -1,30 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axiosWithAuth from '../utils/axiosWithAuth';
 
 const Login = props => {
-    const [credentials, setCredentials] = useState({username: '', password: ''})
+    
+    const [ credentials, setCredentials ] = useState({ username: '', password: '' });
 
     const handleChange = e => {
-        setCredentials({
-              ...credentials,
-              [e.target.name]: e.target.value
-            })
+        setCredentials({ ...credentials, [e.target.name]: e.target.value });
     };
 
-    const onSubmit = e => {
+    const login = e => {
         e.preventDefault();
         axiosWithAuth()
         .post('/api/login', credentials)
         .then(res => {
             localStorage.setItem('token', res.data.payload);
-            this.props.history.push('/myfriends');
+            props.history.push('/friends');
         })
         .catch(err => console.log(err.response));
-    }
+    };
 
         return (
             <div>
-                <form onSubmit={onSubmit}>
+                <form onSubmit={login}>
                     <input
                       type="text"
                       name="username"
@@ -37,7 +35,7 @@ const Login = props => {
                       value={credentials.password}
                       onChange={handleChange}
                       / >
-                    <button>Log In</button>
+                    <button type='submit'>Log In</button>
                 </form>
             </div>
         );
